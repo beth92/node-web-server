@@ -10,10 +10,8 @@ var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
-//register middleware with app.use
-app.use(express.static(__dirname + '/public'));
 
-// use next to specify what to do when this use function is done
+// use next to specify when this middleware function is done
 app.use((req,res,next)=>{
   var now = new Date().toString();
   var log = `${now}: ${req.method} ${req.url}`;
@@ -24,14 +22,17 @@ app.use((req,res,next)=>{
       console.log('Error: could not log network action: ' + log);
     }
   });
+  // move on 
   next();
 });
 
 // maintenance middleware - while present this halts execution of request handlebars
-// due to lack of next function 
+// due to lack of next function
 app.use( (req,res,next) => {
   res.render('maintenance.hbs');
 });
+
+app.use(express.static(__dirname + '/public'));
 
 hbs.registerHelper('getCurrentYear', () => {
   return new Date().getFullYear();
