@@ -30,9 +30,9 @@ app.use((req,res,next)=>{
 
 // maintenance middleware - while present this halts execution of request handlebars
 // due to lack of next function
-app.use( (req,res,next) => {
+/*app.use( (req,res,next) => {
   res.render('maintenance.hbs');
-});
+});*/
 
 app.use(express.static(__dirname + '/public'));
 
