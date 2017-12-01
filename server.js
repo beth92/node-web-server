@@ -5,6 +5,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.port || 3000;
+
 
 var app = express();
 
@@ -22,7 +24,7 @@ app.use((req,res,next)=>{
       console.log('Error: could not log network action: ' + log);
     }
   });
-  // move on 
+  // move on
   next();
 });
 
@@ -76,6 +78,7 @@ app.get('/bad', (req,res)=>{
 });
 
 // bind app to a port on this machine
-app.listen(3000, ()=>{
-  console.log('Server is up on port 3000');
+// heroku uses an environment variable
+app.listen(port, ()=>{
+  console.log('Server is up on port ' + port);
 });
